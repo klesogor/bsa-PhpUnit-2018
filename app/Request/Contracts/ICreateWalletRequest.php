@@ -2,7 +2,7 @@
 
 namespace App\Request\Contracts;
 
-interface CreateWalletRequest
+interface ICreateWalletRequest
 {
     public function getUserId() : int;
 }

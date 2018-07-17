@@ -4,7 +4,7 @@ namespace App\Repository\Contracts;
 
 use App\Entity\Currency;
 
-interface CurrencyRepository
+interface ICurrencyRepository
 {
     public function add(Currency $currency) : Currency;
 

@@ -4,7 +4,7 @@ namespace App\Repository\Contracts;
 
 use App\Entity\Money;
 
-interface MoneyRepository
+interface IMoneyRepository
 {
     public function save(Money $money) : Money;
 

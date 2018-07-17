@@ -4,7 +4,7 @@ namespace App\Repository\Contracts;
 
 use App\User;
 
-interface UserRepository
+interface IUserRepository
 {
     public function getById(int $id) : ?User;
 }

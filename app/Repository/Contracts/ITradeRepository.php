@@ -4,7 +4,7 @@ namespace App\Repository\Contracts;
 
 use App\Entity\Trade;
 
-interface TradeRepository
+interface ITradeRepository
 {
     public function add(Trade $trade) : Trade;
 }

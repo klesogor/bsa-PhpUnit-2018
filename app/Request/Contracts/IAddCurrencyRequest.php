@@ -2,7 +2,7 @@
 
 namespace App\Request\Contracts;
 
-interface AddCurrencyRequest
+interface IAddCurrencyRequest
 {
     public function getName() : string;
 }

@@ -2,7 +2,7 @@
 
 namespace App\Request\Contracts;
 
-interface MoneyRequest
+interface IMoneyRequest
 {
     public function getWalletId() : int;
 

@@ -3,7 +3,7 @@
 namespace App\Service\Contracts;
 
 use App\Entity\{ Lot, Trade};
-use App\Request\Contracts\{ AddLotRequest, BuyLotRequest };
+use App\Request\Contracts\{ IAddLotRequest, IBuyLotRequest };
 use App\Response\Contracts\LotResponse;
 use App\Exceptions\MarketException\{
     ActiveLotExistsException,
@@ -16,12 +16,12 @@ use App\Exceptions\MarketException\{
     LotDoesNotExistException
 };
 
-interface MarketService
+interface IMarketService
 {
     /**
      * Sell currency.
      *
-     * @param AddLotRequest $lotRequest
+     * @param IAddLotRequest $lotRequest
      * 
      * @throws ActiveLotExistsException
      * @throws IncorrectTimeCloseException
@@ -29,12 +29,12 @@ interface MarketService
      *
      * @return Lot
      */
-    public function addLot(AddLotRequest $lotRequest) : Lot;
+    public function addLot(IAddLotRequest $lotRequest) : Lot;
 
     /**
      * Buy currency.
      *
-     * @param BuyLotRequest $lotRequest
+     * @param IBuyLotRequest $lotRequest
      * 
      * @throws BuyOwnCurrencyException
      * @throws IncorrectLotAmountException
@@ -43,7 +43,7 @@ interface MarketService
      * 
      * @return Trade
      */
-    public function buyLot(BuyLotRequest $lotRequest) : Trade;
+    public function buyLot(IBuyLotRequest $lotRequest) : Trade;
 
     /**
      * Retrieves lot by an identifier and returns it in LotResponse format

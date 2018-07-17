@@ -2,7 +2,7 @@
 
 namespace App\Request\Contracts;
 
-interface BuyLotRequest
+interface IBuyLotRequest
 {
     public function getUserId() : int;
 

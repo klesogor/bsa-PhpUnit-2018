@@ -33,4 +33,10 @@ class Lot extends Model
             return (new Carbon($this->date_time_close))->getTimestamp();
         }
     }
+
+    public function scopeActive($query)
+    {
+        return $query->where('date_time_close','>',Carbon::now()->timestamp)// still has money and not timeouted yet
+            ->where('price','>',0);
+    }
 }

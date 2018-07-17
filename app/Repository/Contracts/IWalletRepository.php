@@ -4,7 +4,7 @@ namespace App\Repository\Contracts;
 
 use App\Entity\Wallet;
 
-interface WalletRepository
+interface IWalletRepository
 {
     public function add(Wallet $wallet) : Wallet;
 

@@ -2,7 +2,7 @@
 
 namespace App\Request\Contracts;
 
-interface AddLotRequest
+interface IAddLotRequest
 {
     public function getCurrencyId() : int;
 

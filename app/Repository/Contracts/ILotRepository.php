@@ -4,7 +4,7 @@ namespace App\Repository\Contracts;
 
 use App\Entity\Lot;
 
-interface LotRepository
+interface ILotRepository
 {
     public function add(Lot $lot) : Lot;
 
