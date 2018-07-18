@@ -4,6 +4,7 @@ namespace App\Service\Validators;
 
 
 use App\Entity\Lot;
+use App\Exceptions\MarketException\ActiveLotExistsException;
 use App\Exceptions\MarketException\BuyInactiveLotException;
 use App\Exceptions\MarketException\BuyOwnCurrencyException;
 use App\Exceptions\MarketException\IncorrectPriceException;
@@ -30,15 +31,18 @@ class MarketValidator implements IMarketValidator
         if($request->getPrice()<0){
             throw new IncorrectPriceException();
         }
+        if(!is_null($this->lotRepository->findActiveLot($request->getSellerId()))){
+            throw new ActiveLotExistsException();
+        }
     }
 
     public function validateBuyLot(IBuyLotRequest $request, ?Lot $lot): void
     {
-        if($request->getUserId() === $lot->seller_id) {
-            throw new BuyOwnCurrencyException();
-        }
         if(is_null($lot)){
             throw new BuyInactiveLotException();
+        }
+        if($request->getUserId() === $lot->seller_id) {
+            throw new BuyOwnCurrencyException();
         }
     }
 

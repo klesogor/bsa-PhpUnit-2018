@@ -47,7 +47,7 @@ class MarketService implements IMarketService
                                 IWalletService $walletService,
                                 IMarketValidator $validator,
                                 IUserRepository $userRepo,
-                                ICurrencyRepository $repository,
+                                ICurrencyRepository $currencyRepo,
                                 IMoneyRepository $moneyRepo)
     {
         $this->lotRepository = $lotRepo;
@@ -56,7 +56,7 @@ class MarketService implements IMarketService
         $this->walletService = $walletService;
         $this->validator = $validator;
         $this->userRepository = $userRepo;
-        $this->currencyRepository = $repository;
+        $this->currencyRepository = $currencyRepo;
         $this->moneyRepository = $moneyRepo;
     }
 
@@ -81,7 +81,7 @@ class MarketService implements IMarketService
         $lot->seller_id = $lotRequest->getSellerId();
         $lot->date_time_open = $lotRequest->getDateTimeOpen();
         $lot->date_time_close = $lotRequest->getDateTimeClose();
-        $this->lotRepository->add($lot);
+        return $this->lotRepository->add($lot);
     }
 
     /**
@@ -114,10 +114,7 @@ class MarketService implements IMarketService
         $trade->lot_id = $lotRequest->getLotId();
         $trade->user_id = $lotRequest->getUserId();
         $trade->amount = $lotRequest->getAmount();
-        $this->tradeRepository->add($trade);
-
-        return $trade;
-
+        return $this->tradeRepository->add($trade);
     }
 
     /**
@@ -150,7 +147,7 @@ class MarketService implements IMarketService
 
     private function lotResponseFromLot(Lot $lot): ILotResponse
     {
-        $user = $this->userRepository->getById($lot->sellerId);
+        $user = $this->userRepository->getById($lot->seller_id);
         $currency = $this->currencyRepository->getById($lot->currency_id);
         return new LotResponse(
             $lot->id,
@@ -160,6 +157,6 @@ class MarketService implements IMarketService
                 ->findByUser($user->id)->id,$currency->id)->amount,
             Carbon::createFromTimestamp($lot->date_time_open)->format('Y/m/d h:i:s'),
             Carbon::createFromTimestamp($lot->date_time_close)->format('Y/m/d h:i:s'),
-            number_format($lot->price,2,','));
+            number_format($lot->price,2,',', ''));
     }
 }
