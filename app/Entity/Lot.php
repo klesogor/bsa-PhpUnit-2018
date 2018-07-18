@@ -36,7 +36,16 @@ class Lot extends Model
 
     public function scopeActive($query)
     {
-        return $query->where('date_time_close','>',Carbon::now()->timestamp)// still has money and not timeouted yet
-            ->where('price','>',0);
+        return $query->where('date_time_close','>',Carbon::now()->timestamp);
+    }
+
+    public function owner()
+    {
+        return $this->belongsTo(\App\User::class,'seller_id');
+    }
+
+    public function currency()
+    {
+        return $this->belongsTo(Currency::class);
     }
 }

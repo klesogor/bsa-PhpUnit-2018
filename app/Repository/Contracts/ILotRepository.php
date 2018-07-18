@@ -8,6 +8,8 @@ interface ILotRepository
 {
     public function add(Lot $lot) : Lot;
 
+    public function getByIdActive(int $id) : ?Lot;
+
     public function getById(int $id) : ?Lot;
 
     /**

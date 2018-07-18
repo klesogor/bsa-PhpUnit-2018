@@ -4,7 +4,7 @@ namespace App\Service\Contracts;
 
 use App\Entity\{ Lot, Trade};
 use App\Request\Contracts\{ IAddLotRequest, IBuyLotRequest };
-use App\Response\Contracts\LotResponse;
+use App\Response\Contracts\ILotResponse;
 use App\Exceptions\MarketException\{
     ActiveLotExistsException,
     IncorrectPriceException,
@@ -52,14 +52,14 @@ interface IMarketService
      * 
      * @throws LotDoesNotExistException
      * 
-     * @return LotResponse
+     * @return ILotResponse
      */
-    public function getLot(int $id) : LotResponse;
+    public function getLot(int $id) : ILotResponse;
 
     /**
      * Return list of lots.
      *
-     * @return LotResponse[]
+     * @return ILotResponse[]
      */
     public function getLotList() : array;
 }

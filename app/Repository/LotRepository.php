@@ -14,6 +14,13 @@ class LotRepository implements  ILotRepository
         return $lot;
     }
 
+    public function getByIdActive(int $id): ?Lot//returns only active
+    {
+        return  Lot::active()
+            ->where('id',$id)
+            ->first();
+    }
+
     public function getById(int $id): ?Lot
     {
         return Lot::find($id);

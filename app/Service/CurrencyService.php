@@ -10,11 +10,17 @@ use App\Service\Contracts\ICurrencyService;
 
 class CurrencyService implements ICurrencyService
 {
+    private $repository;
+
+    public function __construct(ICurrencyRepository $repository)
+    {
+        $this->repository = $repository;
+    }
 
     public function addCurrency(IAddCurrencyRequest $currencyRequest): Currency
     {
         $currency = new Currency();
         $currency->name = $currencyRequest->getName();
-        return app(ICurrencyRepository::class)->add($currency);
+        return $this->repository->add($currency);
     }
 }

@@ -2,7 +2,7 @@
 
 namespace App\Response\Contracts;
 
-interface LotResponse
+interface ILotResponse
 {
     /**
      * An identifier of lot

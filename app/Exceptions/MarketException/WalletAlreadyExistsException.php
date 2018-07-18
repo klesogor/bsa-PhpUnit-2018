@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Exceptions\WalletException;
+namespace App\Exceptions\MarketException;
 
 
 class WalletAlreadyExistsException extends \Exception

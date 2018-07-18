@@ -6,6 +6,7 @@ namespace App\Repository;
 use App\Entity\Wallet;
 use App\Repository\Contracts\IWalletRepository;
 
+
 class WalletRepository implements IWalletRepository
 {
 
