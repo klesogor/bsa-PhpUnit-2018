@@ -58,15 +58,18 @@ class CurrencyController extends Controller
 
     public function addLotView()
     {
+        if (!Auth::check()) {
+            abort(403);
+        }
         return view('addLot');
     }
 
     public function addLotFromView(\App\Http\Requests\AddLotRequest $request)
     {
+        if (!Auth::check()) {
+            abort(403);
+        }
         try {
-            if (!Auth::check()) {
-                abort(403);
-            }
             $lot = $this->marketService->addLot(new AddLotRequest(
                 $request->currency_id,
                 Auth::id(),

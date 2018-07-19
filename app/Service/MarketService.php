@@ -153,7 +153,6 @@ class MarketService implements IMarketService
      */
     public function getLotList(): array
     {
-        Log::debug($this->lotRepository->findAll());
         return array_map(function($lot){
             return $this->lotResponseFromLot($lot);
         },$this->lotRepository->findAll());
