@@ -46,6 +46,16 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        if($exception instanceof \LogicException)
+        {
+            return response([
+                'error' =>[
+                    'message' => $exception->getMessage(),
+                    'status_code' => 400
+                ]
+            ],400);
+        }
+
         return parent::render($request, $exception);
     }
 }

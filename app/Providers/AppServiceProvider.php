@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Entity\Lot;
+use App\Events\Observers\LotObserver;
 use App\Service\Contracts\ICurrencyService;
 use App\Service\Contracts\IMarketService;
 use App\Service\Contracts\INotificationService;
@@ -35,6 +37,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(IWalletService::class, WalletService::class);
         $this->app->bind(IMarketService::class, MarketService::class);
         $this->app->bind(INotificationService::class, NotificationService::class);
+        
+        Lot::observe(LotObserver::class);
     }
 
     /**

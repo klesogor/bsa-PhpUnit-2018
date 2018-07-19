@@ -3,7 +3,7 @@
 namespace App\Exceptions\MarketException;
 
 
-class IncorrectMoneyAmountException extends \Exception
+class IncorrectMoneyAmountException extends \LogicException
 {
 
 }

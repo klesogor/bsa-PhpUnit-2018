@@ -45,7 +45,7 @@ class LotRepository implements  ILotRepository
     public function findActiveLot(int $userId): ?Lot
     {
        return Lot::active()
-           ->where('user_id',$userId)
+           ->where('seller_id',$userId)
            ->first();
     }
 }

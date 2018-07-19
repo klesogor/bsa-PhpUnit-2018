@@ -36,7 +36,7 @@ class Lot extends Model
 
     public function scopeActive($query)
     {
-        return $query->where('date_time_close','>',Carbon::now()->timestamp);
+        return $query->where('date_time_close','>',Carbon::now()->format('Y-m-d h:i:s'));
     }
 
     public function owner()

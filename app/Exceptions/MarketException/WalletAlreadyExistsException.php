@@ -3,7 +3,7 @@
 namespace App\Exceptions\MarketException;
 
 
-class WalletAlreadyExistsException extends \Exception
+class WalletAlreadyExistsException extends \LogicException
 {
 
 }

@@ -166,7 +166,7 @@ class MarketService implements IMarketService
             $user->name,
             $currency->name,
             $this->moneyRepository->findByWalletAndCurrency($this->walletRepository
-                ->findByUser($user->id)->id,$currency->id)->amount,
+                ->findByUser($user->id)->id,$currency->id)->amount ?? 0,
             Carbon::createFromTimestamp($lot->date_time_open)->format('Y/m/d h:i:s'),
             Carbon::createFromTimestamp($lot->date_time_close)->format('Y/m/d h:i:s'),
             number_format($lot->price,2,',', ''));

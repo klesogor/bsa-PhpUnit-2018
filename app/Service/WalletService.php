@@ -90,7 +90,7 @@ class WalletService implements IWalletService
 
         $this->validator->validateTakeMoneyRequest($moneyRequest,$money);
 
-        $money->amount = $money->money - $moneyRequest->getAmount();
+        $money->amount = $money->amount - $moneyRequest->getAmount();
         return $this->moneyRepository->save($money);
     }
 }

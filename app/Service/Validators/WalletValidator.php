@@ -30,27 +30,27 @@ class WalletValidator implements IWalletValidator
     public function validateTakeMoneyRequest(IMoneyRequest $request, ?Money $money): void
     {
         if($request->getAmount() < 1.0){
-            throw new BuyNegativeAmountException();
+            throw new BuyNegativeAmountException('You must buy at least 1.00 currency');
         }
 
         if(is_null($money)){
-            throw new WalletDoesntExistsException();
+            throw new WalletDoesntExistsException('Seller doesn\'t has wallet with this currency');
         }
         if($money->amount < $request->getAmount()){
-            throw new IncorrectLotAmountException();
+            throw new IncorrectLotAmountException('Seller doesn\'t has that much currency');
         }
     }
 
     public function validateAddMoney(IMoneyRequest $request, ?Money $money): void
     {
         if($request->getAmount() < 0){
-            throw new IncorrectMoneyAmountException();
+            throw new IncorrectMoneyAmountException('Yout can\'t add negative money amount!');
         }
     }
 
     public function validateCreateWalletRequest(ICreateWalletRequest $request) {
         if($this->walletRepository->findByUser($request->getUserId())){
-            throw new WalletAlreadyExistsException();
+            throw new WalletAlreadyExistsException('You already have active wallet!');
         }
     }
 }

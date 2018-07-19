@@ -4,7 +4,7 @@
 namespace App\Exceptions\MarketException;
 
 
-class IncorrectUserException extends \Exception
+class IncorrectUserException extends \LogicException
 {
 
 }
