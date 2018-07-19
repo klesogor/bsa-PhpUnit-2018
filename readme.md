@@ -32,7 +32,7 @@ git checkout -b develop
 
 * [Репозитории](app/Repository/Contracts)
     * [App\Repository\Contracts\CurrencyRepository](app/Repository/Contracts/CurrencyRepository.php)
-    * [App\Repository\Contracts\MoneyRepository](app/Repository/Contracts/MoneyRepository.php)
+    * [App\Repository\Contracts\MoneyRepository](app/Repository/MoneyRepository.php)
     * [App\Repository\Contracts\LotRepository](app/Repository/Contracts/LotRepository.php)
     * [App\Repository\Contracts\TradeRepository](app/Repository/Contracts/TradeRepository.php)
     * [App\Repository\Contracts\WalletRepository](app/Repository/Contracts/WalletRepository.php)
