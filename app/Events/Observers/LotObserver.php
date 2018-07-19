@@ -23,10 +23,10 @@ class LotObserver
     public function saving(Lot $lot)
     {
         if (is_int($lot->date_time_open)) {
-            $lot->date_time_open = Carbon::createFromTimestamp($lot->date_time_open)->format('Y-m-d h:i:s');
+            $lot->date_time_open = Carbon::createFromTimestamp($lot->date_time_open)->format('Y-m-d H:i:s');
         }
         if (is_int($lot->date_time_close)) {
-            $lot->date_time_close = Carbon::createFromTimestamp($lot->date_time_close)->format('Y-m-d h:i:s');
+            $lot->date_time_close = Carbon::createFromTimestamp($lot->date_time_close)->format('Y-m-d H:i:s');
         }
     }
 }

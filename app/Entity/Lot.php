@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
@@ -36,12 +37,12 @@ class Lot extends Model
 
     public function scopeActive($query)
     {
-        return $query->where('date_time_close','>',Carbon::now()->format('Y-m-d h:i:s'));
+        return $query->where('date_time_close','>',Carbon::now()->format('Y-m-d H:i:s'));
     }
 
     public function owner()
     {
-        return $this->belongsTo(\App\User::class,'seller_id');
+        return $this->belongsTo(User::class,'seller_id');
     }
 
     public function currency()

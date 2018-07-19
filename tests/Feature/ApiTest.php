@@ -39,11 +39,13 @@ class ApiTest extends TestCase
 
         $this->assertDatabaseHas('lots',[
             'seller_id' => $user->id,
-            'date_time_open' => Carbon::createFromTimestamp($timestamp)->format('Y-m-d h:i:s'),
-            'date_time_close' => Carbon::createFromTimestamp($timestampEnd)->format('Y-m-d h:i:s'),
+            'date_time_open' => Carbon::createFromTimestamp($timestamp)->format('Y-m-d H:i:s'),
+            'date_time_close' => Carbon::createFromTimestamp($timestampEnd)->format('Y-m-d H:i:s'),
             'currency_id' => $currency->id,
             'price'=>10
         ]);
+
+        $this->assertNotNull(Lot::active()->first());
 
     }
 
