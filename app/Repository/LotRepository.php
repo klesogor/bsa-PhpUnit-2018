@@ -31,7 +31,7 @@ class LotRepository implements  ILotRepository
      */
     public function findAll()
     {
-        return Lot::all();
+        return Lot::all()->all();
     }
 
     /**
@@ -39,7 +39,7 @@ class LotRepository implements  ILotRepository
      */
     public function findAllActive()
     {
-        return Lot::active()->get();
+        return Lot::active()->get()->all();
     }
 
     public function findActiveLot(int $userId): ?Lot

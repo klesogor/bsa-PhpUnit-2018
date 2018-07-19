@@ -6,21 +6,20 @@ use App\Response\Contracts\ILotResponse;
 
 class LotResponsePresenter
 {
-    public static function presentLotResponse(ILotResponse $response):string
+    public static function presentLotResponse(ILotResponse $response):array
     {
-        $lotToArray = static::lotToArray($response);
-        return json_encode($lotToArray);
+        return static::lotToArray($response);
     }
 
     /**
      * @param ILotResponse[] $responses
      * @return string
      */
-    public static function presentLotResponseArray(array $responses):string
+    public static function presentLotResponseArray(array $responses):array
     {
-        return json_encode(array_map(function($lotResponse){
+        return array_map(function($lotResponse){
             return static::lotToArray($lotResponse);
-        },$responses));
+        },$responses);
     }
 
     private static function lotToArray(ILotResponse $response): array

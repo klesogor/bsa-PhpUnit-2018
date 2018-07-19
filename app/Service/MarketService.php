@@ -29,6 +29,7 @@ use App\Service\Contracts\INotificationService;
 use App\Service\Contracts\IWalletService;
 use App\Service\Validators\Contracts\IMarketValidator;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 
 class MarketService implements IMarketService
 {
@@ -152,6 +153,7 @@ class MarketService implements IMarketService
      */
     public function getLotList(): array
     {
+        Log::debug($this->lotRepository->findAll());
         return array_map(function($lot){
             return $this->lotResponseFromLot($lot);
         },$this->lotRepository->findAll());
@@ -166,7 +168,7 @@ class MarketService implements IMarketService
             $user->name,
             $currency->name,
             $this->moneyRepository->findByWalletAndCurrency($this->walletRepository
-                ->findByUser($user->id)->id,$currency->id)->amount ?? 0,
+                ->findByUser($user->id)->id,$currency->id)->amount,
             Carbon::createFromTimestamp($lot->date_time_open)->format('Y/m/d h:i:s'),
             Carbon::createFromTimestamp($lot->date_time_close)->format('Y/m/d h:i:s'),
             number_format($lot->price,2,',', ''));

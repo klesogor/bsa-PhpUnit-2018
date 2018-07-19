@@ -10,7 +10,7 @@ class LotObserver
 {
     //convert timestamps
 
-    public function retrived(Lot $lot)
+    public function retrieved(Lot $lot)
     {
         if (!is_int($lot->date_time_open)) {
            $lot->date_time_open = (new Carbon($lot->date_time_open))->getTimestamp();
