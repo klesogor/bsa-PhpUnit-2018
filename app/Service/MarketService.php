@@ -25,6 +25,7 @@ use App\Request\MoneyRequest;
 use App\Response\Contracts\ILotResponse;
 use App\Response\LotResponse;
 use App\Service\Contracts\IMarketService;
+use App\Service\Contracts\INotificationService;
 use App\Service\Contracts\IWalletService;
 use App\Service\Validators\Contracts\IMarketValidator;
 use Carbon\Carbon;
@@ -40,6 +41,7 @@ class MarketService implements IMarketService
     private $userRepository;
     private $currencyRepository;
     private $moneyRepository;
+    private $notificationService;
 
     public function __construct(ITradeRepository $tradeRepo,
                                 ILotRepository $lotRepo,
@@ -48,7 +50,8 @@ class MarketService implements IMarketService
                                 IMarketValidator $validator,
                                 IUserRepository $userRepo,
                                 ICurrencyRepository $currencyRepo,
-                                IMoneyRepository $moneyRepo)
+                                IMoneyRepository $moneyRepo,
+                                INotificationService $notificationService)
     {
         $this->lotRepository = $lotRepo;
         $this->walletRepository = $walletRepo;
@@ -58,6 +61,7 @@ class MarketService implements IMarketService
         $this->userRepository = $userRepo;
         $this->currencyRepository = $currencyRepo;
         $this->moneyRepository = $moneyRepo;
+        $this->notificationService = $notificationService;
     }
 
 
@@ -111,10 +115,18 @@ class MarketService implements IMarketService
             $lotRequest->getAmount()));
 
         $trade = new Trade();
+
         $trade->lot_id = $lotRequest->getLotId();
         $trade->user_id = $lotRequest->getUserId();
         $trade->amount = $lotRequest->getAmount();
-        return $this->tradeRepository->add($trade);
+
+        $trade = $this->tradeRepository->add($trade);
+        $this->notificationService->notifyTradeCreated(
+            $this->userRepository->getById($lot->seller_id),
+            $this->userRepository->getById($trade->user_id),
+            $trade
+        );
+        return $trade;
     }
 
     /**

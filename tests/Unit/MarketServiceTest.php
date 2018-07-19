@@ -22,6 +22,7 @@ use App\Repository\Contracts\IUserRepository;
 use App\Repository\Contracts\IWalletRepository;
 use App\Request\AddLotRequest;
 use App\Request\BuyLotRequest;
+use App\Service\Contracts\INotificationService;
 use App\Service\MarketService;
 use App\Service\Validators\MarketValidator;
 use App\Service\Validators\WalletValidator;
@@ -42,6 +43,7 @@ class MarketServiceTest extends TestCase
     private $moneyRepo;
 
     private $marketService;
+    private $notificationService;
 
     protected function setUp()
     {
@@ -53,6 +55,8 @@ class MarketServiceTest extends TestCase
         $this->userRepo= $this->createMock(IUserRepository::class);
         $this->currencyRepo = $this->createMock(ICurrencyRepository::class);
         $this->moneyRepo = $this->createMock(IMoneyRepository::class);
+        $this->notificationService = $this->createMock(INotificationService::class);
+
         $this->walletService = new WalletService(
             $this->walletRepo,
             $this->moneyRepo,
@@ -67,7 +71,8 @@ class MarketServiceTest extends TestCase
             $this->marketValidator,
             $this->userRepo,
             $this->currencyRepo,
-            $this->moneyRepo);
+            $this->moneyRepo,
+            $this->notificationService);
     }
 
     public function test_load()//test if bootstrap ok
@@ -169,6 +174,7 @@ class MarketServiceTest extends TestCase
 
         $this->moneyRepo->method('save')->will($this->returnArgument(0));
         $this->walletRepo->method('findByUser')->willReturn(new Wallet(['id'=>1,'currency_id'=>1]));
+        $this->userRepo->method('getById')->willReturn(new User);
 
         $request = new BuyLotRequest(1,1,50);
         $trade = $this->marketService->buyLot($request);

@@ -11,6 +11,7 @@ use App\Repository\Contracts\IUserRepository;
 use App\Repository\Contracts\IWalletRepository;
 use App\Service\Contracts\ICurrencyService;
 use App\Service\Contracts\IMarketService;
+use App\Service\Contracts\INotificationService;
 use App\Service\Contracts\IWalletService;
 use App\Service\Validators\Contracts\IMarketValidator;
 use App\Service\Validators\Contracts\IWalletValidator;
@@ -61,6 +62,10 @@ class BindingsTest extends TestCase
         $this->assertInstanceOf(
             IMarketService::class,
             $this->app->make(IMarketService::class)
+        );
+        $this->assertInstanceOf(
+            INotificationService::class,
+            $this->app->make(INotificationService::class)
         );
     }
 

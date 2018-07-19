@@ -4,9 +4,11 @@ namespace App\Providers;
 
 use App\Service\Contracts\ICurrencyService;
 use App\Service\Contracts\IMarketService;
+use App\Service\Contracts\INotificationService;
 use App\Service\Contracts\IWalletService;
 use App\Service\CurrencyService;
 use App\Service\MarketService;
+use App\Service\NotificationService;
 use App\Service\Validators\Contracts\IMarketValidator;
 use App\Service\Validators\Contracts\IWalletValidator;
 use App\Service\Validators\MarketValidator;
@@ -32,6 +34,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(ICurrencyService::class, CurrencyService::class);
         $this->app->bind(IWalletService::class, WalletService::class);
         $this->app->bind(IMarketService::class, MarketService::class);
+        $this->app->bind(INotificationService::class, NotificationService::class);
     }
 
     /**
