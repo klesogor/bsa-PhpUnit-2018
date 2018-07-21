@@ -119,7 +119,7 @@ class ApiTest extends TestCase
         $response->assertHeader('Content-Type', 'application/json');
         $response->assertStatus(400);
         $response->assertJson(['error'=>[
-            'message'=>'You already have active lot!',
+            'message'=>'You already have active lot for this currency!',
             'status_code' =>400
         ]]);
     }

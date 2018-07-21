@@ -31,8 +31,11 @@ class MarketValidator implements IMarketValidator
         if($request->getPrice()<0){
             throw new IncorrectPriceException('Price should be zero or greater');
         }
-        if(!is_null($this->lotRepository->findActiveLot($request->getSellerId()))){
-            throw new ActiveLotExistsException('You already have active lot!');
+        if(!is_null($this->lotRepository->findActiveLotByUserAndCurrency(
+            $request->getSellerId(),
+            $request->getCurrencyId()
+        ))){
+            throw new ActiveLotExistsException("You already have active lot for this currency!");
         }
     }
 
@@ -49,7 +52,7 @@ class MarketValidator implements IMarketValidator
     public function validateGetLot(?Lot $lot): void
     {
         if(is_null($lot)){
-            throw new BuyInactiveLotException('This lot is inactive');
+            throw new BuyInactiveLotException('There are no such lot');
         }
     }
 }

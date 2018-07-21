@@ -48,4 +48,12 @@ class LotRepository implements  ILotRepository
            ->where('seller_id',$userId)
            ->first();
     }
+
+    public function findActiveLotByUserAndCurrency(int $userId, int $currencyId): ?Lot
+    {
+        return Lot::active()
+            ->where('seller_id',$userId)
+            ->where('currency_id',$currencyId)
+            ->first();
+    }
 }

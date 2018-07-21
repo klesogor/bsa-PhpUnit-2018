@@ -105,7 +105,7 @@ class MarketServiceTest extends TestCase
         $this->expectException(ActiveLotExistsException::class);
 
         $this->lotRepo
-            ->method('findActiveLot')
+            ->method('findActiveLotByUserAndCurrency')
             ->willReturn(new Lot);
 
         $timestamp = Carbon::now()->timestamp;
