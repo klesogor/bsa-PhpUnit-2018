@@ -82,7 +82,7 @@ class AddLotPageTest extends DuskTestCase
                 ->value('input[name=currency_id]',$this->currency->id)
                 ->press('Add')
                 ->assertPathIs('/market/lots/add')
-                ->assertSee('Sorry, error has been occurred: You already have active lot!');
+                ->assertSee('Sorry, error has been occurred: You already have active lot for this currency!');
          });
     }
 }
