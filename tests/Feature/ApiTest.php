@@ -49,6 +49,45 @@ class ApiTest extends TestCase
 
     }
 
+    public function test_add_lot_valid_with_active_lot_of_other_currency()
+    {
+        $user = factory(User::class)->create();
+        factory(Wallet::class)->create(['user_id'=>$user->id]);
+        $timestamp = Carbon::now()->timestamp;
+        $timestampEnd = Carbon::createFromTimestamp($timestamp)->addHour()->timestamp;
+        $currency = factory(Currency::class)->create();
+        $response = $this->actingAs($user)
+            ->json('POST','/api/v1/lots',[
+                'currency_id' => $currency->id,
+                'date_time_open' => $timestamp,
+                'date_time_close' => $timestampEnd,
+                'price' => 10
+            ]);
+
+        $currency2 = factory(Currency::class)->create();
+
+        factory(Lot::class)->create([
+            'seller_id' => $user->id,
+            'currency_id' => $currency2->id,
+            'date_time_open' => $timestamp,
+            'date_time_close' => $timestampEnd
+        ]);
+
+        $response->assertStatus(201);
+        $response->assertHeader('Content-Type', 'application/json');
+
+        $this->assertDatabaseHas('lots',[
+            'seller_id' => $user->id,
+            'date_time_open' => Carbon::createFromTimestamp($timestamp)->format('Y-m-d H:i:s'),
+            'date_time_close' => Carbon::createFromTimestamp($timestampEnd)->format('Y-m-d H:i:s'),
+            'currency_id' => $currency->id,
+            'price'=>10
+        ]);
+
+        $this->assertNotNull(Lot::active()->first());
+
+    }
+
     public function test_add_lot_negative_price()
     {
         $user = factory(User::class)->create();
