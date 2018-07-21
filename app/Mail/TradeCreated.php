@@ -3,6 +3,7 @@
 namespace App\Mail;
 
 use App\Entity\Trade;
+use App\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
@@ -12,16 +13,20 @@ class TradeCreated extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $trade;
+    private $trade;
+    private $recipient;
+    private $buyer;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct(Trade $trade)
+    public function __construct(Trade $trade,User $recipient,User $buyer)
     {
         $this->trade = $trade;
+        $this->recipient = $recipient;
+        $this->buyer = $buyer;
     }
 
     /**
@@ -31,6 +36,10 @@ class TradeCreated extends Mailable
      */
     public function build()
     {
-
+        return $this->markdown('mail.tradeCreated',[
+            'buyerName'=> $this->buyer->name,
+            'amount'=> $this->trade->amount,
+            'lotId'=>$this->trade->lotId,
+        ])->to($this->recipient->email);
     }
 }

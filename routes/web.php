@@ -14,3 +14,8 @@
 Route::get('/', function () {
     return view('welcome');
 });
+Auth::routes();
+
+Route::get('market/lots/add','CurrencyController@addLotView');
+
+Route::post('market/lots/add','CurrencyController@addLotFromView')->name('addLot');
